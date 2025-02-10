@@ -1,11 +1,13 @@
 // import { init_db } from 'db/init';
 import { connect } from 'db/init';
 import express from 'express';
-import UserRouter from 'routers/user.router';
-import MessageRouter from 'routers/message.router';
+import expressWs from 'express-ws';
+
+import { mount_routers } from './routers';
 
 export default async () => {
 	const app = express();
+	const ews = expressWs(app).app;
 
 	await connect();
 
@@ -13,8 +15,14 @@ export default async () => {
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 	
-	app.use('/users', UserRouter);
-	app.use('/messages', MessageRouter);
+	ews.ws('/test/socket', (ws, req) => {
+		ws.on('message', (msg) => {
+			console.log('request for messages', msg);
+		});
+		console.log('socket', req.body);
+	});
+	mount_routers(app);
+
 
 	app.listen(4040, () => {
 		console.log('App listening on port 4040');
