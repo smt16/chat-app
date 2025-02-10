@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "lib": ["es2022"],
+    "target": "es2020",                      
+    "module": "commonjs", 
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "declaration": true,   
+    "esModuleInterop": true,                 
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strict": true,                        
+    "outDir": "js",
+    "baseUrl": "./src",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "paths": {
+      "controllers/*": ["./controllers/*"],
+      "routers/*": [ "./routers/*" ],
+      "main": ["./main"],
+      "db/*": ["./db/*"]
+    }             
+  }
+}
